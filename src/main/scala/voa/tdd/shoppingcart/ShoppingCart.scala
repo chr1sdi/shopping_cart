@@ -5,21 +5,24 @@ import scala.collection.mutable.ListBuffer
 
 class ShoppingCart {
 
-  private val productPrices = Map("Apple" -> 0.6, "Orange" -> 0.25)
-  private val products = ListBuffer[String]()
+  private val productPrices = Map("Apple" -> 60, "Orange" -> 25)
+  private val productList = ListBuffer[String]()
 
   def addProduct(productName: String) {
-    products += productName
+    productList += productName
+  }
+
+  def addProducts(products: List[String]){
+    productList ++= products
   }
 
   def calculateTotal: Double = {
-    products.foldLeft(0.0) {
-      (a, b) => getPriceForProduct(b)
-    }
-
+    productList.foldLeft(0) {
+      (a, b) => a + getPriceForProduct(b)
+    }.toDouble / 100
   }
 
-  private def getPriceForProduct(productName: String): Double = {
-    productPrices.get(productName).getOrElse(0.0)
+  private def getPriceForProduct(productName: String): Int = {
+    productPrices.get(productName).getOrElse(0)
   }
 }

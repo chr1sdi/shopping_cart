@@ -11,7 +11,7 @@ class ShoppingCartTests extends FlatSpec  with Matchers {
      sut.calculateTotal should be(0.0)
    }
 
-  it should "sum price of 1 apple correctly" in {
+  it should "sum the total price of 1 apple correctly" in {
     val sutSC = new ShoppingCart()
 
     sutSC.addProduct("Apple")
@@ -19,13 +19,23 @@ class ShoppingCartTests extends FlatSpec  with Matchers {
     sutSC.calculateTotal should be(0.6)
   }
 
-  it should "sum price of 1 orange correctly" in {
+  it should "sum the total price of 1 orange correctly" in {
     val sutSC = new ShoppingCart()
 
     sutSC.addProduct("Orange")
 
     sutSC.calculateTotal should be(0.25)
   }
+
+  it should "sum the total price of multiple apples correctly" in {
+    val sutSC = new ShoppingCart()
+
+    sutSC.addProducts(List("Apple", "Apple", "Apple"))
+
+    sutSC.calculateTotal should be(1.8)
+  }
+
+
 
 
 
