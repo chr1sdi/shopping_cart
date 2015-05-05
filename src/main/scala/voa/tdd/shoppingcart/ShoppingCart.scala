@@ -16,13 +16,20 @@ class ShoppingCart {
     productList ++= products
   }
 
-  def calculateTotal: Double = {
-    productList.foldLeft(0) {
+  def calculateTotal: String = {
+    val sumInPence = productList.foldLeft(0) {
       (a, b) => a + getPriceForProduct(b)
-    }.toDouble / 100
+    }
+
+    toPoundFormat(sumInPence)
   }
 
   private def getPriceForProduct(productName: String): Int = {
     productPrices.get(productName).getOrElse(0)
   }
+
+  private def toPoundFormat(pence: Int): String = {
+    "£" + (pence.toDouble / 100)
+  }
+
 }
