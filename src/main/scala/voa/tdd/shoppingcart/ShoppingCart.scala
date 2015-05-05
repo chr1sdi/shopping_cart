@@ -5,7 +5,7 @@ import scala.collection.mutable.ListBuffer
 
 class ShoppingCart {
 
-  private val productPrices = Map("Apple" -> 0.65, "Orange" -> 0.25)
+  private val productPrices = Map("Apple" -> 0.6, "Orange" -> 0.25)
   private val products = ListBuffer[String]()
 
   def addProduct(productName: String) {
@@ -14,7 +14,7 @@ class ShoppingCart {
 
   def calculateTotal: Double = {
     products.foldLeft(0.0) {
-      (a, b) => 0.6
+      (a, b) => getPriceForProduct(b)
     }
 
   }
