@@ -1,0 +1,12 @@
+target
+*.iml
+.idea
+.DS_Store
+RUNNING_PID
+*.swp
+logs/*
+/.target
+/.settings
+.cache
+.classpath
+.project
