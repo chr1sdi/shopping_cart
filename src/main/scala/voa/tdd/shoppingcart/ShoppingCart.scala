@@ -3,13 +3,10 @@ package voa.tdd.shoppingcart
 import scala.collection.immutable.Map
 import scala.collection.mutable.ListBuffer
 
-class ShoppingCart(appleDeal:Boolean = false) {
+class ShoppingCart(appleDeal:Boolean = false, orangeDeal: Boolean = false) {
 
   private val productPrices = Map("Apple" -> 60, "Orange" -> 25)
   private val productList = ListBuffer[String]()
-//  private val appleDealValid
-
-//  def apply(appleDeal:Boolean = false)
 
   def addProduct(productName: String) {
     productList += productName
@@ -28,7 +25,10 @@ class ShoppingCart(appleDeal:Boolean = false) {
       case false => appleAmount * getPriceForProduct("Apple")
     }
 
-    val orangeTotalCost = orangeAmount * getPriceForProduct("Orange")
+    val orangeTotalCost = orangeDeal match {
+      case true => (((orangeAmount / 3) * 2) + (orangeAmount % 3)) * getPriceForProduct("Orange")
+      case false => orangeAmount * getPriceForProduct("Orange")
+    }
 
     toPoundFormat(appleTotalCost + orangeTotalCost)
   }

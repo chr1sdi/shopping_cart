@@ -64,7 +64,7 @@ class ShoppingCartTests extends FlatSpec  with Matchers {
     sutSC.calculateTotal should be("£2.55")
   }
 
-  behavior of "Apple deal 2 for 1"
+  behavior of "Apple deal 2 for 1 only"
   "ShoppingCart with apple deal" should "sum 2 apples for the price of 1" in {
     val sutSC = createNewShoppingCart(withAppleDeal = true)
 
@@ -88,11 +88,37 @@ class ShoppingCartTests extends FlatSpec  with Matchers {
     sutSC.calculateTotal should be("£2.3")
   }
 
+  behavior of "Orange deal 3 for 2 only"
+  "ShoppingCart with orange deal" should "sum 3 oranges for the price of 2" in {
+    val sutSC = createNewShoppingCart(withOrangeDeal = true)
+
+    sutSC.addProduct("Orange")
+    sutSC.addProduct("Orange")
+    sutSC.addProduct("Orange")
+
+    sutSC.calculateTotal should be("£0.5")
+  }
+
+  it should "sum 3 oranges for the price of 2 for multiple items" in {
+    val sutSC = createNewShoppingCart(withOrangeDeal = true)
+
+    sutSC.addProduct("Apple")
+    sutSC.addProduct("Apple")
+    sutSC.addProduct("Orange")
+    sutSC.addProduct("Orange")
+    sutSC.addProduct("Apple")
+    sutSC.addProduct("Orange")
+    sutSC.addProduct("Orange")
+
+    sutSC.calculateTotal should be("£2.55")
+  }
 
 
 
 
-  private def createNewShoppingCart(withAppleDeal: Boolean = false): ShoppingCart = new ShoppingCart(withAppleDeal)
+
+  private def createNewShoppingCart(withAppleDeal: Boolean = false, withOrangeDeal:Boolean = false): ShoppingCart =
+    new ShoppingCart(withAppleDeal, withOrangeDeal)
 
 
 }
