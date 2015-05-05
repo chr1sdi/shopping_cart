@@ -113,12 +113,50 @@ class ShoppingCartTests extends FlatSpec  with Matchers {
     sutSC.calculateTotal should be("£2.55")
   }
 
+  behavior of "Apple and orange deals combined"
+  "ShoppingCart with orange and apple deal" should "sum the items correctly" in {
+    val sutSC = createNewShoppingCart(withAppleDeal = true, withOrangeDeal = true)
 
+    sutSC.addProducts(List("Orange", "Apple", "Orange", "Orange", "Apple"))
+    sutSC.calculateTotal should be("£1.1")
+  }
 
+  it should "sum the items correctly added independently" in {
+    val sutSC = createNewShoppingCart(withAppleDeal = true, withOrangeDeal = true)
+
+    sutSC.addProduct("Apple")
+    sutSC.calculateTotal should be("£0.6")
+
+    sutSC.addProduct("Apple")
+    sutSC.calculateTotal should be("£0.6")
+
+    sutSC.addProduct("Apple")
+    sutSC.calculateTotal should be("£1.2")
+
+    sutSC.addProduct("Orange")
+    sutSC.calculateTotal should be("£1.45")
+
+    sutSC.addProduct("Orange")
+    sutSC.calculateTotal should be("£1.7")
+
+    sutSC.addProduct("Orange")
+    sutSC.calculateTotal should be("£1.7")
+
+    sutSC.addProduct("Orange")
+    sutSC.calculateTotal should be("£1.95")
+
+    sutSC.addProduct("Apple")
+    sutSC.calculateTotal should be("£1.95")
+
+    sutSC.addProduct("Orange")
+    sutSC.calculateTotal should be("£2.2")
+
+    sutSC.addProduct("Orange")
+    sutSC.calculateTotal should be("£2.2")
+  }
 
 
   private def createNewShoppingCart(withAppleDeal: Boolean = false, withOrangeDeal:Boolean = false): ShoppingCart =
     new ShoppingCart(withAppleDeal, withOrangeDeal)
-
 
 }
